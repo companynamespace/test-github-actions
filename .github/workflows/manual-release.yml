@@ -22,6 +22,9 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     name: Test, Build and prepare Release
+    steps:
+      - name: Check config
+        run: "echo ${{ env.config_node-version }}"
   release:
     needs: prepare
     name: Test, Build and Release

@@ -13,6 +13,10 @@ jobs:
     steps:
       - id: set-matrix
         run: echo "matrix=${{ env.CONFIG_JSON }}" >> $GITHUB_OUTPUT
+      # - name: print
+      #   run: |
+      #     echo ${{ outputs.matrix }}
+      #     echo ${{ fromJSON(outputs.matrix) }}
   job2:
     needs: job1
     runs-on: ubuntu-latest

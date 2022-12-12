@@ -27,8 +27,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ${{ fromJSON($env.CONFIG_OS) }}
-        node-version: ${{ fromJSON($env.CONFIG_NODE_VERSION) }}
+        os: ${{ fromJSON(env.CONFIG_OS) }}
+        node-version: ${{ fromJSON(env.CONFIG_NODE_VERSION) }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3

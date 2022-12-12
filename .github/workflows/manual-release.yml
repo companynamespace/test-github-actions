@@ -7,26 +7,33 @@ on:
         required: true
         default: 'patch'
       dryRun:
-        description: 'DryRUn'
+        description: 'DryRun'
         required: true
         default: 'false'
 jobs:
   config:
     runs-on: ubuntu-latest
+    outputs:
+      env: ${{ steps.config.outputs }}
+      str: ${{ steps.config.outputs.CONFIG_NODE_VERSION }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Load config
-        uses: antifree/json-to-variables@v1.0.1
+      - name: Load config env
+        id: config
+        uses: falti/dotenv-action@v1.0.2
         with:
-          filename: ./.github/workflows/config.json
-          prefix: config
+          path: ./.github/workflows/.env
   prepare:
+    needs: config
     runs-on: ubuntu-latest
     name: Test, Build and prepare Release
     steps:
       - name: Check config
-        run: "echo ${{ env.config_node-version }}"
+        run: |
+          "echo ${{ config.outputs.env.CONFIG_NODE_VERSION }}"
+          "echo ${{ config.outputs.str.CONFIG_NODE_VERSION }}"
+          "echo ${{ fromJSON(config.outputs.str.CONFIG_NODE_VERSION) }}"
   release:
     needs: prepare
     name: Test, Build and Release

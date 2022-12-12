@@ -9,7 +9,7 @@ on:
       dryRun:
         description: 'DryRun'
         type: boolean
-        default: 'false'
+        default: true
 # ENV and Config        
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

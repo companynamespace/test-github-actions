@@ -31,9 +31,9 @@ jobs:
     steps:
       - name: Check config
         run: |
-          "echo ${{ config.outputs.env.CONFIG_NODE_VERSION }}"
-          "echo ${{ config.outputs.str.CONFIG_NODE_VERSION }}"
-          "echo ${{ fromJSON(config.outputs.str.CONFIG_NODE_VERSION) }}"
+          "echo ${{ needs.config.outputs.env.CONFIG_NODE_VERSION }}"
+          "echo ${{ needs.config.outputs.str.CONFIG_NODE_VERSION }}"
+          "echo ${{ fromJSON(needs.config.outputs.str.CONFIG_NODE_VERSION) }}"
   release:
     needs: prepare
     name: Test, Build and Release

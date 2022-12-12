@@ -33,10 +33,10 @@ jobs:
         run: echo "CONFIGJSON=${{ env.CONFIG_JSON }}" >> $GITHUB_OUTPUT
   release:
     needs: config
-    # runs-on: ${{ matrix.OS }}
-    runs-on: ubuntu-latest
-    # strategy:
-    #   matrix: ${{ fromJSON(needs.config.outputs.CONFIG_JSON) }}
+    runs-on: ${{ matrix.OS }}
+    # runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJSON(needs.config.outputs.CONFIGJSON) }}
     steps:
       - name: Config
         run: |

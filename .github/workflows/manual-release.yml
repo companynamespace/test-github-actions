@@ -21,31 +21,37 @@ env:
   CI: true
   CONFIG_NODE_VERSION: '[ "16.x" ]'
   CONFIG_OS: '[ "ubuntu-latest" ]'
+  CONFIG_JSON: ${{ fromJSON("{\"OS\":[\"16.x\"],\"NODE_VERSION\":[\"ubuntu-latest\"]}") }}
 # Main Job
 jobs:
   config:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: ${{ fromJSON(env.CONFIG_OS) }}
-        node-version: ${{ fromJSON(env.CONFIG_NODE_VERSION) }}
+    runs-on: ubuntu-latest
+    # runs-on: ${{ matrix.os }}
+    # strategy:
+    #   matrix:
+    #     os: ${{ fromJSON(env.CONFIG_OS) }}
+    #     node-version: ${{ fromJSON(env.CONFIG_NODE_VERSION) }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix['node-version'] }}
-      - name: Install dependencies
-        run: npm ci
-      - name: Build Library
-        run: npm run build --if-present
-      - name: Run Tests
-        run: npm test --if-present
-      - name: Release npm package
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          dry_run: ${{ github.event.inputs.dryRun == 'true' }}
-          extra_plugins: |
-            @semantic-release/changelog
-            @semantic-release/git
+      - name: Config
+        run: |
+          echo ${{ env.CONFIG_NODE_VERSION }}
+          echo ${{ env.CONFIG_JSON }}
+      # - name: Checkout repo
+      #   uses: actions/checkout@v3
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ matrix['node-version'] }}
+      # - name: Install dependencies
+      #   run: npm ci
+      # - name: Build Library
+      #   run: npm run build --if-present
+      # - name: Run Tests
+      #   run: npm test --if-present
+      # - name: Release npm package
+      #   uses: cycjimmy/semantic-release-action@v3
+      #   with:
+      #     dry_run: ${{ github.event.inputs.dryRun == 'true' }}
+      #     extra_plugins: |
+      #       @semantic-release/changelog
+      #       @semantic-release/git

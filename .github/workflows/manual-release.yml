@@ -10,7 +10,7 @@ on:
         description: 'DryRun'
         type: boolean
         default: true
-# ENV and Config        
+# ENV and Config
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -19,8 +19,8 @@ env:
   GIT_COMMITTER_NAME: github-actions
   GIT_COMMITTER_EMAIL: github-actions@github.com
   CI: true
-  CONFIG_NODE_VERSION: [16.x]
-  CONFIG_OS: [ubuntu-latest]
+  CONFIG_NODE_VERSION: '["16.x"]'
+  CONFIG_OS: '["ubuntu-latest"]'
   CONFIG_JSON: "{\"OS\":[\"ubuntu-latest\"],\"NODE_VERSION\":[\"16.x\"]}"
 # Main Job
 jobs:
@@ -32,15 +32,15 @@ jobs:
     steps:
       - id: set-config
         run: |
-          echo "CONFIG_NODE_VERSION=${{ env.CONFIG_NODE_VERSION }}" >> $GITHUB_OUTPUT
-          echo "CONFIG_OS=${{ env.CONFIG_OS }}" >> $GITHUB_OUTPUT
+          echo "CONFIG_NODE_VERSION=${{ toJSON(env.CONFIG_NODE_VERSION) }}" >> $GITHUB_OUTPUT
+          echo "CONFIG_OS=${{ toJSON(env.CONFIG_OS) }}" >> $GITHUB_OUTPUT
   release:
     needs: config
     runs-on: ${{ matrix.OS }}
     strategy:
-      matrix: 
-        OS: ${{ needs.config.outputs.NODE_VERSION }}
-        NODE_VERSION: ${{ needs.config.outputs.NODE_VERSION }}
+      matrix:
+        OS: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
+        NODE_VERSION: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
     steps:
       - name: Config
         run: |
@@ -65,3 +65,4 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/git
+            

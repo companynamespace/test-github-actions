@@ -25,7 +25,6 @@ env:
 # Main Job
 jobs:
   config:
-    runs-on: ubuntu-latest
     runs-on: ${{ matrix.OS }}
     strategy:
       matrix: ${{ fromJSON(env.CONFIG_JSON) }}

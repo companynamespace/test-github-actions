@@ -2,7 +2,7 @@ name: build
 on: push
 
 env:
-  CONFIG_JSON: "{\"os\":[\"ubuntu-latest\"],\"node_version\":[\"16.x\"]}"
+  CONFIG_JSON: "{\"os0\":[\"ubuntu-latest\"],\"nodeo\":[\"16.x\"]}"
 
 jobs:
   job1:

@@ -14,7 +14,7 @@ jobs:
   config:
     runs-on: ubuntu-latest
     outputs:
-      env: ${{ steps.configEnv.outputs }}
+      env: ${{ steps.configEnv.outputs.CONFIG_NODE_VERSION }}
       str: ${{ steps.configEnv.outputs.CONFIG_NODE_VERSION }}
     steps:
       - name: Checkout repo

@@ -27,7 +27,7 @@ jobs:
   config:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      CONFIG_JSON: ${{ steps.set-matrix.outputs.CONFIG_JSON }}
     steps:
       - id: set-matrix
         run: echo "CONFIG_JSON=$env.CONFIG_JSON" >> $GITHUB_OUTPUT

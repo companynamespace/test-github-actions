@@ -27,24 +27,25 @@ jobs:
   config:
     runs-on: ubuntu-latest
     outputs:
-      CONFIGJSON: ${{ steps.set-config.outputs.CONFIGJSON }}
+      NODE_VERSION: ${{ steps.set-config.outputs.CONFIG_NODE_VERSION }}
+      OS: ${{ steps.set-config.outputs.CONFIG_OS }}
     steps:
       - id: set-config
-        run: echo "CONFIGJSON=${{ env.CONFIG_JSON }}" >> $GITHUB_OUTPUT
+        run: |
+          echo "CONFIG_NODE_VERSION=${{ env.CONFIG_NODE_VERSION }}" >> $GITHUB_OUTPUT
+          echo "CONFIG_OS=${{ env.CONFIG_OS }}" >> $GITHUB_OUTPUT
   release:
     needs: config
     runs-on: ${{ matrix.OS }}
-    # runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.config.outputs.CONFIGJSON) }}
+      matrix: 
+        OS: ${{ needs.config.outputs.NODE_VERSION }}
+        NODE_VERSION: ${{ needs.config.outputs.NODE_VERSION }}
     steps:
       - name: Config
         run: |
           echo ${{ env.CONFIG_NODE_VERSION }}
-          echo ${{ env.CONFIG_JSON }}
-          echo ${{ fromJSON(env.CONFIG_JSON) }}
-          echo ${{ fromJSON(env.CONFIG_JSON)['OS'] }}
-          echo ${{ needs.config.outputs.CONFIGJSON }}
+          echo ${{ matrix.NODE_VERSION }}
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup Node.js

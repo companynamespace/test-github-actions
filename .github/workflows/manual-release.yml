@@ -8,19 +8,19 @@ on:
         default: 'patch'
       dryRun:
         description: 'DryRun'
-        required: true
+        type: boolean
         default: 'false'
 jobs:
   config:
     runs-on: ubuntu-latest
     outputs:
-      env: ${{ steps.config.outputs }}
-      str: ${{ steps.config.outputs.CONFIG_NODE_VERSION }}
+      env: ${{ steps.configEnv.outputs }}
+      str: ${{ steps.configEnv.outputs.CONFIG_NODE_VERSION }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Load config env
-        id: config
+        id: configEnv
         uses: falti/dotenv-action@v1.0.2
         with:
           path: ./.github/workflows/.env

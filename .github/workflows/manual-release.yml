@@ -21,7 +21,7 @@ env:
   CI: true
   CONFIG_NODE_VERSION: '[ "16.x" ]'
   CONFIG_OS: '[ "ubuntu-latest" ]'
-  CONFIG_JSON: ${{ fromJSON("{\"OS\":[\"16\\.x\"],\"NODE_VERSION\":[\"ubuntu-latest\"]}") }}
+  CONFIG_JSON: "{\"OS\":[\"16.x\"],\"NODE_VERSION\":[\"ubuntu-latest\"]}"
 # Main Job
 jobs:
   config:
@@ -36,6 +36,7 @@ jobs:
         run: |
           echo ${{ env.CONFIG_NODE_VERSION }}
           echo ${{ env.CONFIG_JSON }}
+          echo ${{ fromJSON(env.CONFIG_JSON) }}
       # - name: Checkout repo
       #   uses: actions/checkout@v3
       # - name: Setup Node.js

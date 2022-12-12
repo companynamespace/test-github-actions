@@ -13,17 +13,12 @@ on:
 jobs:
   config:
     runs-on: ubuntu-latest
-    outputs:
-      env: ${{ steps.configEnv.outputs.CONFIG_NODE_VERSION }}
-      str: ${{ steps.configEnv.outputs.CONFIG_NODE_VERSION }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Load config env
-        id: configEnv
-        uses: falti/dotenv-action@v1.0.2
-        with:
-          path: ./.github/workflows/.env
+      - name: 'Create env file'
+        run: |
+          echo "./.github/workflows/.env" > .env
   prepare:
     needs: config
     runs-on: ubuntu-latest
@@ -31,44 +26,43 @@ jobs:
     steps:
       - name: Check config
         run: |
-          "echo ${{ needs.config.outputs.env.CONFIG_NODE_VERSION }}"
-          "echo ${{ needs.config.outputs.str.CONFIG_NODE_VERSION }}"
-          "echo ${{ fromJSON(needs.config.outputs.str.CONFIG_NODE_VERSION) }}"
-  release:
-    needs: prepare
-    name: Test, Build and Release
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        # os: ${{ env.config_os }}
-        # node-version: ${{ env.config_node-version }}
-        os: [ ubuntu-latest ]
-        node-version: [ 16.x ]
-    steps:
-      - name: Check config
-        run: "echo ${{ env.config_node-version }}"
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix['node-version'] }}
-      - name: Install dependencies
-        run: npm ci
-      - name: Build Library
-        run: npm run build --if-present
-      - name: Run Tests
-        run: npm test --if-present
-      - name: Release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          dry_run: ${{ github.event.inputs.dryRun == 'true' }}
-          extra_plugins: |
-            @semantic-release/changelog
-            @semantic-release/git
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GIT_AUTHOR_NAME: github-actions
-          GIT_AUTHOR_EMAIL: github-actions@github.com
-          GIT_COMMITTER_NAME: github-actions
-          GIT_COMMITTER_EMAIL: github-actions@github.com
-          CI: true
+          "echo ${{ env.CONFIG_NODE_VERSION }}"
+          "echo ${{ CONFIG_NODE_VERSION }}"
+  # release:
+  #   needs: prepare
+  #   name: Test, Build and Release
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       # os: ${{ env.config_os }}
+  #       # node-version: ${{ env.config_node-version }}
+  #       os: [ ubuntu-latest ]
+  #       node-version: [ 16.x ]
+  #   steps:
+  #     - name: Check config
+  #       run: "echo ${{ env.config_node-version }}"
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{ matrix['node-version'] }}
+  #     - name: Install dependencies
+  #       run: npm ci
+  #     - name: Build Library
+  #       run: npm run build --if-present
+  #     - name: Run Tests
+  #       run: npm test --if-present
+  #     - name: Release
+  #       uses: cycjimmy/semantic-release-action@v3
+  #       with:
+  #         dry_run: ${{ github.event.inputs.dryRun == 'true' }}
+  #         extra_plugins: |
+  #           @semantic-release/changelog
+  #           @semantic-release/git
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #         GIT_AUTHOR_NAME: github-actions
+  #         GIT_AUTHOR_EMAIL: github-actions@github.com
+  #         GIT_COMMITTER_NAME: github-actions
+  #         GIT_COMMITTER_EMAIL: github-actions@github.com
+  #         CI: true

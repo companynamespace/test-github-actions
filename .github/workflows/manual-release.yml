@@ -21,7 +21,7 @@ env:
   CI: true
   CONFIG_NODE_VERSION: '["lts/*"]'
   CONFIG_OS: '["ubuntu-latest"]'
-  CONFIG_JSON: '{\"OS\":[\"ubuntu-latest\"],\"NODE_VERSION\":[\"lts/*\"]}'
+  CONFIG_JSON: '{"OS":["ubuntu-latest"],"NODE_VERSION":["lts/*"]}'
 # Main Job
 jobs:
   config:

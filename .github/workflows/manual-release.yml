@@ -16,9 +16,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: 'Create env file'
-        run: |
-          echo "./.github/workflows/.env" > .env
+      - name: Load config to env
+        uses: xom9ikk/dotenv@v2
+        with:
+          path: ./.github/workflows
+          mode: development
   prepare:
     needs: config
     runs-on: ubuntu-latest

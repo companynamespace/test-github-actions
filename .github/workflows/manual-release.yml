@@ -39,7 +39,7 @@ jobs:
     runs-on: ${{ matrix.OS }}
     strategy:
       matrix:
-        OS: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
+        OS: ${{ fromJSON(needs.config.outputs.OS) }}
         NODE_VERSION: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
     steps:
       - name: Config
@@ -65,4 +65,3 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/git
-            

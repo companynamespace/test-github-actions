@@ -27,7 +27,6 @@ jobs:
       - name: Check config
         run: |
           "echo ${{ env.CONFIG_NODE_VERSION }}"
-          "echo ${{ CONFIG_NODE_VERSION }}"
   # release:
   #   needs: prepare
   #   name: Test, Build and Release

@@ -3,7 +3,7 @@ on: push
 
 env:
   CONFIG_JSONe: "{\"oso\":[\"ubuntu-latest\"],\"nodeo\":[\"16.x\"]}"
-  CONFIG_JSON: "{\"oso\":\"ubuntu-latest\",\"nodeo\":\"16.x\"}"
+  CONFIG_JSON: "{\"oso\":\"ubuntu-latest\"}"
 
 jobs:
   job1:

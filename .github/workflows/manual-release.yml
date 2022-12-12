@@ -21,7 +21,7 @@ env:
   CI: true
   CONFIG_NODE_VERSION: '["lts/*"]'
   CONFIG_OS: '["ubuntu-latest"]'
-  CONFIG_JSON: "{\"OS\":[\"ubuntu-latest\"],\"NODE_VERSION\":[\"16.x\"]}"
+  CONFIG_JSON: "{\"OS\":[\"ubuntu-latest\"],\"NODE_VERSION\":[\"lts/*\"]}"
 # Main Job
 jobs:
   config:
@@ -29,18 +29,20 @@ jobs:
     outputs:
       NODE_VERSION: ${{ steps.set-config.outputs.CONFIG_NODE_VERSION }}
       OS: ${{ steps.set-config.outputs.CONFIG_OS }}
+      CONFIG: ${{ steps.set-config.outputs.CONFIG_OS }}
     steps:
       - id: set-config
         run: |
           echo "CONFIG_NODE_VERSION=${{ toJSON(env.CONFIG_NODE_VERSION) }}" >> $GITHUB_OUTPUT
           echo "CONFIG_OS=${{ toJSON(env.CONFIG_OS) }}" >> $GITHUB_OUTPUT
+          echo "CONFIG=${{ toJSON(env.CONFIG_JSON) }}" >> $GITHUB_OUTPUT
   release:
     needs: config
     runs-on: ${{ matrix.OS }}
     strategy:
-      matrix:
-        OS: ${{ fromJSON(needs.config.outputs.OS) }}
-        NODE_VERSION: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
+      matrix: ${{ fromJSON(needs.config.outputs.CONFIG) }}
+        # OS: ${{ fromJSON(needs.config.outputs.OS) }}
+        # NODE_VERSION: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
     steps:
       - name: Config
         run: |

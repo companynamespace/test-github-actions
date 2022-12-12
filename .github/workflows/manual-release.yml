@@ -21,7 +21,7 @@ env:
   CI: true
   CONFIG_NODE_VERSION: '[ "16.x" ]'
   CONFIG_OS: '[ "ubuntu-latest" ]'
-  CONFIG_JSON: ${{ fromJSON('{\"OS\":[\"16\\.x\"],\"NODE_VERSION\":[\"ubuntu-latest\"]}') }}
+  CONFIG_JSON: ${{ fromJSON("{\"OS\":[\"16\\.x\"],\"NODE_VERSION\":[\"ubuntu-latest\"]}") }}
 # Main Job
 jobs:
   config:

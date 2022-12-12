@@ -3,7 +3,7 @@ on: push
 
 env:
   CONFIG_JSONe: "{\"oso\":[\"ubuntu-latest\"],\"nodeo\":[\"16.x\"]}"
-  CONFIG_JSON: "{\"oso\":\"ubuntu-latest\"}"
+  CONFIG_JSON: '{\"oso\":\"ubuntu-latest\"}'
 
 jobs:
   job1:
@@ -12,17 +12,12 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - id: set-matrix
-        run: echo "matrix=${{ '{\"oso\":\"ubuntu-latest\"}' }}" >> $GITHUB_OUTPUT
-        # run: echo "matrix=${{ env.CONFIG_JSON }}" >> $GITHUB_OUTPUT
-      # - name: print
-      #   run: |
-      #     echo ${{ outputs.matrix }}
-      #     echo ${{ fromJSON(outputs.matrix) }}
+        run: echo "matrix=${{ env.CONFIG_JSON }}" >> $GITHUB_OUTPUT
   job2:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
+      matrix: ${{ needs.job1.outputs.matrix }}
     steps:
       - name: Config
         run: |

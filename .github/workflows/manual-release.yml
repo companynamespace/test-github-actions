@@ -26,11 +26,9 @@ env:
 jobs:
   config:
     runs-on: ubuntu-latest
-    # runs-on: ${{ matrix.os }}
-    # strategy:
-    #   matrix:
-    #     os: ${{ fromJSON(env.CONFIG_OS) }}
-    #     node-version: ${{ fromJSON(env.CONFIG_NODE_VERSION) }}
+    runs-on: ${{ matrix.OS }}
+    strategy:
+      matrix: ${{ fromJSON(env.CONFIG_JSON) }}
     steps:
       - name: Config
         run: |
@@ -38,22 +36,22 @@ jobs:
           echo ${{ env.CONFIG_JSON }}
           echo ${{ fromJSON(env.CONFIG_JSON) }}
           echo ${{ fromJSON(env.CONFIG_JSON)['OS'] }}
-      # - name: Checkout repo
-      #   uses: actions/checkout@v3
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ matrix['node-version'] }}
-      # - name: Install dependencies
-      #   run: npm ci
-      # - name: Build Library
-      #   run: npm run build --if-present
-      # - name: Run Tests
-      #   run: npm test --if-present
-      # - name: Release npm package
-      #   uses: cycjimmy/semantic-release-action@v3
-      #   with:
-      #     dry_run: ${{ github.event.inputs.dryRun == 'true' }}
-      #     extra_plugins: |
-      #       @semantic-release/changelog
-      #       @semantic-release/git
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.NODE_VERSION }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Library
+        run: npm run build --if-present
+      - name: Run Tests
+        run: npm test --if-present
+      - name: Release npm package
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          dry_run: ${{ github.event.inputs.dryRun == 'true' }}
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/git

@@ -10,66 +10,42 @@ on:
         description: 'DryRun'
         type: boolean
         default: 'false'
+# ENV and Config        
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  GIT_AUTHOR_NAME: github-actions
+  GIT_AUTHOR_EMAIL: github-actions@github.com
+  GIT_COMMITTER_NAME: github-actions
+  GIT_COMMITTER_EMAIL: github-actions@github.com
+  CI: true
+  CONFIG_NODE_VERSION: [ 16.x ]
+  CONFIG_OS: [ ubuntu-latest ]
+# Main Job
 jobs:
   config:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: $env.CONFIG_OS
+        node-version: $env.CONFIG_NODE_VERSION
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Load config to env
-        uses: xom9ikk/dotenv@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          path: ./.github/workflows
-          mode: development
-      - name: Check config in a job
-        run: |
-          echo "${{ env.CONFIG_NODE_VERSION }}"
-          echo $CONFIG_NODE_VERSION    
-  prepare:
-    needs: config
-    runs-on: ubuntu-latest
-    name: Test, Build and prepare Release
-    steps:
-      - name: Check config
-        run: |
-          echo "${{ env.CONFIG_NODE_VERSION }}"
-          echo "${{ env.CONFIG_NODE_VERSION }}"
-          echo $CONFIG_NODE_VERSION
-  # release:
-  #   needs: prepare
-  #   name: Test, Build and Release
-  #   runs-on: ${{ matrix.os }}
-  #   strategy:
-  #     matrix:
-  #       # os: ${{ env.config_os }}
-  #       # node-version: ${{ env.config_node-version }}
-  #       os: [ ubuntu-latest ]
-  #       node-version: [ 16.x ]
-  #   steps:
-  #     - name: Check config
-  #       run: "echo ${{ env.config_node-version }}"
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix['node-version'] }}
-  #     - name: Install dependencies
-  #       run: npm ci
-  #     - name: Build Library
-  #       run: npm run build --if-present
-  #     - name: Run Tests
-  #       run: npm test --if-present
-  #     - name: Release
-  #       uses: cycjimmy/semantic-release-action@v3
-  #       with:
-  #         dry_run: ${{ github.event.inputs.dryRun == 'true' }}
-  #         extra_plugins: |
-  #           @semantic-release/changelog
-  #           @semantic-release/git
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  #         GIT_AUTHOR_NAME: github-actions
-  #         GIT_AUTHOR_EMAIL: github-actions@github.com
-  #         GIT_COMMITTER_NAME: github-actions
-  #         GIT_COMMITTER_EMAIL: github-actions@github.com
-  #         CI: true
+          node-version: ${{ matrix['node-version'] }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Library
+        run: npm run build --if-present
+      - name: Run Tests
+        run: npm test --if-present
+      - name: Release npm package
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          dry_run: ${{ github.event.inputs.dryRun == 'true' }}
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/git

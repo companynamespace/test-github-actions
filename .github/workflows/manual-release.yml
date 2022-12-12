@@ -44,7 +44,7 @@ jobs:
           echo ${{ env.CONFIG_JSON }}
           echo ${{ fromJSON(env.CONFIG_JSON) }}
           echo ${{ fromJSON(env.CONFIG_JSON)['OS'] }}
-          echo ${{ fromJSON(needs.config.outputs.CONFIG_JSON) }}
+          echo ${{ needs.config.outputs.CONFIG_JSON }}
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup Node.js

@@ -27,10 +27,10 @@ jobs:
   config:
     runs-on: ubuntu-latest
     outputs:
-      CONFIG_JSON: ${{ steps.set-config.outputs.CONFIG_JSON }}
+      CONFIGJSON: ${{ steps.set-config.outputs.CONFIGJSON }}
     steps:
       - id: set-config
-        run: echo "CONFIG_JSON=${{ env.CONFIG_JSON }}" >> $GITHUB_OUTPUT
+        run: echo "CONFIGJSON=${{ env.CONFIG_JSON }}" >> $GITHUB_OUTPUT
   release:
     needs: config
     # runs-on: ${{ matrix.OS }}
@@ -44,7 +44,7 @@ jobs:
           echo ${{ env.CONFIG_JSON }}
           echo ${{ fromJSON(env.CONFIG_JSON) }}
           echo ${{ fromJSON(env.CONFIG_JSON)['OS'] }}
-          echo ${{ needs.config.outputs.CONFIG_JSON }}
+          echo ${{ needs.config.outputs.CONFIGJSON }}
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup Node.js

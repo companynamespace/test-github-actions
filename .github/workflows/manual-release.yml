@@ -19,16 +19,16 @@ env:
   GIT_COMMITTER_NAME: github-actions
   GIT_COMMITTER_EMAIL: github-actions@github.com
   CI: true
-  CONFIG_NODE_VERSION: [ "16.x" ]
-  CONFIG_OS: [ "ubuntu-latest" ]
+  CONFIG_NODE_VERSION: '[ "16.x" ]'
+  CONFIG_OS: '[ "ubuntu-latest" ]'
 # Main Job
 jobs:
   config:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: $env.CONFIG_OS
-        node-version: $env.CONFIG_NODE_VERSION
+        os: ${{ fromJSON($env.CONFIG_OS) }}
+        node-version: ${{ fromJSON($env.CONFIG_NODE_VERSION) }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3

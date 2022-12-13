@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/companynamespace/test-github-actions/compare/v1.0.1...v1.0.2) (2022-12-13)
+
+
+### Bug Fixes
+
+* remove old changelog ([9db26fa](https://github.com/companynamespace/test-github-actions/commit/9db26fa9728bfbcce43661c2164091613b5c8433))
+
 ## [1.0.1](https://github.com/companynamespace/test-github-actions/compare/v1.0.0...v1.0.1) (2022-12-13)
 
 

@@ -31,8 +31,8 @@ jobs:
     steps:
       - id: set-config
         run: |
-          echo "CONFIG_NODE_VERSION=${{ env.CONFIG_NODE_VERSION }}" >> $GITHUB_OUTPUT
-          echo "CONFIG_OS=${{ env.CONFIG_OS }}" >> $GITHUB_OUTPUT
+          echo "CONFIG_NODE_VERSION=${{ toJSON(env.CONFIG_NODE_VERSION) }}" >> $GITHUB_OUTPUT
+          echo "CONFIG_OS=${{ toJSON(env.CONFIG_OS) }}" >> $GITHUB_OUTPUT
   release:
     needs: config
     runs-on: ${{ matrix.OS }}
@@ -45,6 +45,10 @@ jobs:
         run: |
           echo ${{ env.CONFIG_NODE_VERSION }}
           echo ${{ matrix.NODE_VERSION }}
+          echo ${{ env.CONFIG_OS }}
+          echo ${{ matrix.OS }}
+          echo ${{ needs.config.outputs.NODE_VERSION }}
+          echo ${{ needs.config.outputs.OS }}
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup Node.js

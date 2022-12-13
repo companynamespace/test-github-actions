@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/companynamespace/test-github-actions/compare/v1.0.6...v1.1.0) (2022-12-13)
+
+
+### Features
+
+* formatting ([e2ea269](https://github.com/companynamespace/test-github-actions/commit/e2ea269ce477c8a0fcd3c4950a6d9d2eb47020f4))
+
 ## [1.0.6](https://github.com/companynamespace/test-github-actions/compare/v1.0.5...v1.0.6) (2022-12-13)
 
 ## [1.0.5](https://github.com/companynamespace/test-github-actions/compare/v1.0.4...v1.0.5) (2022-12-13)

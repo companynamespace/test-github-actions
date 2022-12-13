@@ -1,3 +1,5 @@
+## [1.1.1](https://github.com/companynamespace/test-github-actions/compare/v1.1.0...v1.1.1) (2022-12-13)
+
 # [1.1.0](https://github.com/companynamespace/test-github-actions/compare/v1.0.6...v1.1.0) (2022-12-13)
 
 

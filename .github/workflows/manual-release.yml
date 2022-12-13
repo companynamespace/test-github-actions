@@ -39,12 +39,15 @@ jobs:
           echo "CONFIG_NODE_VERSION=${{ toJSON(env.CONFIG_NODE_VERSION) }}" >> $GITHUB_OUTPUT
           echo "CONFIG_OS=${{ toJSON(env.CONFIG_OS) }}" >> $GITHUB_OUTPUT
   release:
+    name: Test, Build and force Release
     needs: config
+
     runs-on: ${{ matrix.OS }}
     strategy:
       matrix:
         OS: ${{ fromJSON(needs.config.outputs.OS) }}
         NODE_VERSION: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3

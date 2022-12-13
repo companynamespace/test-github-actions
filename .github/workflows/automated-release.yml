@@ -23,13 +23,17 @@ jobs:
     outputs:
       NODE_VERSION: ${{ steps.set-config.outputs.CONFIG_NODE_VERSION }}
       OS: ${{ steps.set-config.outputs.CONFIG_OS }}
+
     steps:
       - id: set-config
         run: |
           echo "CONFIG_NODE_VERSION=${{ toJSON(env.CONFIG_NODE_VERSION) }}" >> $GITHUB_OUTPUT
           echo "CONFIG_OS=${{ toJSON(env.CONFIG_OS) }}" >> $GITHUB_OUTPUT
+
   release:
     name: Test, Build and Release
+    needs: config
+
     runs-on: ${{ matrix.OS }}
     strategy:
       matrix:

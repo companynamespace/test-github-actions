@@ -26,12 +26,6 @@ env:
   CI: true
   CONFIG_NODE_VERSION: '["lts/*"]'
   CONFIG_OS: '["ubuntu-latest"]'
-  CONFIG_VERSION: >
-    ${{ fromJson('{
-      "patch": "fix",
-      "minor": "feat"
-      "major": "BREAKING CHANGE"
-    }')[github.event.inputs.version] }}
 # Main Job
 jobs:
   config:
@@ -64,8 +58,7 @@ jobs:
           node-version: ${{ matrix.NODE_VERSION }}
       - name: Commit trigger
         run: |
-          echo "${{ env.CONFIG_VERSION }}"
-          git commit --allow-empty -m "${{ env.CONFIG_VERSION }}: Trigger Manual Release"
+          git commit --allow-empty -m "${{ github.event.inputs.version }}: Trigger Manual Release"
       - name: Install dependencies
         run: npm ci
       - name: Build Library

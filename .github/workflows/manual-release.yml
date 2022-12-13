@@ -52,7 +52,8 @@ jobs:
         with:
           node-version: ${{ matrix.NODE_VERSION }}
       - name: Commit trigger
-        run: git commit --allow-empty -m "${{ github.event.inputs.version }}: Trigger Release"
+        run: |
+          git commit --allow-empty -m "${{ github.event.inputs.version }}: Trigger Release"
       - name: Install dependencies
         run: npm ci
       - name: Build Library

@@ -41,14 +41,10 @@ jobs:
         OS: ${{ fromJSON(needs.config.outputs.OS) }}
         NODE_VERSION: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
     steps:
-      - name: Config
+      - name: Show Config
         run: |
-          echo ${{ env.CONFIG_NODE_VERSION }}
-          echo ${{ matrix.NODE_VERSION }}
-          echo ${{ env.CONFIG_OS }}
           echo ${{ matrix.OS }}
-          echo ${{ needs.config.outputs.NODE_VERSION }}
-          echo ${{ needs.config.outputs.OS }}
+          echo ${{ matrix.NODE_VERSION }}
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup Node.js

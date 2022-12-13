@@ -1,3 +1,11 @@
+# 1.0.0 (2022-12-13)
+
+
+### Bug Fixes
+
+* checkout repo ([972968f](https://github.com/companynamespace/test-github-actions/commit/972968f5b6cbfc8c36faf2af9824b3e34a0cd2d5))
+* config path ([c640fd8](https://github.com/companynamespace/test-github-actions/commit/c640fd82ba99af4145ef07658ff545fc19eb0d4d))
+
 ## [1.0.1](https://github.com/companynamespace/npm-package-template/compare/v1.0.0...v1.0.1) (2021-05-12)
 
 

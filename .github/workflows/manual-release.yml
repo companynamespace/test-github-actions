@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Who to greet
+        description: 'Version'
         type: choice
         required: true
         default: patch
@@ -46,10 +46,6 @@ jobs:
         OS: ${{ fromJSON(needs.config.outputs.OS) }}
         NODE_VERSION: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
     steps:
-      - name: Show Config
-        run: |
-          echo ${{ matrix.OS }}
-          echo ${{ matrix.NODE_VERSION }}
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup Node.js
@@ -65,7 +61,7 @@ jobs:
         run: npm run build --if-present
       - name: Run Tests
         run: npm test --if-present
-      - name: Release npm package
+      - name: Publish npm package
         uses: cycjimmy/semantic-release-action@v3
         with:
           dry_run: ${{ github.event.inputs.dryRun == 'true' }}

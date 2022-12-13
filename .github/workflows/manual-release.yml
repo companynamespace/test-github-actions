@@ -26,8 +26,8 @@ jobs:
   config:
     runs-on: ubuntu-latest
     outputs:
-      NODE_VERSION: ${{ toJSON(steps.set-config.outputs.CONFIG_NODE_VERSION) }}
-      OS: ${{ toJSON(steps.set-config.outputs.CONFIG_OS) }}
+      NODE_VERSION: ${{ steps.set-config.outputs.CONFIG_NODE_VERSION }}
+      OS: ${{ steps.set-config.outputs.CONFIG_OS }}
     steps:
       - id: set-config
         run: |

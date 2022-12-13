@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/companynamespace/test-github-actions/compare/v1.0.0...v1.0.1) (2022-12-13)
+
+
+### Bug Fixes
+
+* enable auto release ([fb042de](https://github.com/companynamespace/test-github-actions/commit/fb042deaf77881d17faa997dad859f20ccb3a9a0))
+* rename template ([b56bab6](https://github.com/companynamespace/test-github-actions/commit/b56bab615745512fdfe8fafbef622601bfcc8de4))
+
 # 1.0.0 (2022-12-13)
 
 

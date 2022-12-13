@@ -1,9 +1,9 @@
-# npm-package-template
+# test-github-actions
 Description
 
-[![Version](https://img.shields.io/npm/v/@companynamespace/npm-package-template.svg)](https://npmjs.org/package/@companynamespace/npm-package-template)
-[![Build Status](https://github.com/companynamespace/npm-package-template/workflows/CI/badge.svg?branch=main)](https://github.com/companynamespace/npm-package-template/actions)
-[![CodeQL Analysis](https://github.com/companynamespace/npm-package-template/workflows/CodeQL/badge.svg?branch=main)](https://github.com/companynamespace/npm-package-template/actions)
+[![Version](https://img.shields.io/npm/v/@companynamespace/test-github-actions.svg)](https://npmjs.org/package/@companynamespace/test-github-actions)
+[![Build Status](https://github.com/companynamespace/test-github-actions/workflows/CI/badge.svg?branch=main)](https://github.com/companynamespace/test-github-actions/actions)
+[![CodeQL Analysis](https://github.com/companynamespace/test-github-actions/workflows/CodeQL/badge.svg?branch=main)](https://github.com/companynamespace/test-github-actions/actions)
 [![semver: semantic-release](https://img.shields.io/badge/semver-semantic--release-blue.svg)](https://github.com/semantic-release/semantic-release)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -12,10 +12,10 @@ Description
 1. Create new repo from this Template
    [![Template repo](https://docs.github.com/assets/images/help/repository/use-this-template-button.png)](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
 2. Update Readme
-    - replace `@companynamespace/npm-package-template`  with new package_name
+    - replace `@companynamespace/test-github-actions`  with new package_name
 3. Update package.json
-    - replace "name" `@companynamespace/npm-package-template`  with new package_name
-    - replace "repo" `companynamespace/npm-package-template`  with new package_name repo
+    - replace "name" `@companynamespace/test-github-actions`  with new package_name
+    - replace "repo" `companynamespace/test-github-actions`  with new package_name repo
     - Add description, and other fields if needed
 4. Update LICENSE
     - Update `[COMPANY` name
